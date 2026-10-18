@@ -1,0 +1,111 @@
+# Anonymizer
+
+- Student: Princess Stefaney S. Buladaco
+- Section: CSC 126 - EUHX1
+- Computer Vision (Python, OpenCV), Midterm Project
+
+# Description
+
+Anonymizer is a Computer Vision application built with Python and OpenCV designed to automatically detect and hides human faces with blur, pixelation, or a smiley emoji in images. Although the program cannot tell who is a stranger, children, or who gave consent, the user identifies the faces that should stay visible, and the program anonymizes the other detected faces.
+
+# Problem
+
+In an era where visual media is constantly recorded and shared online, protecting individual privacy, especially for non-consenting bystanders and vulnerable groups like children, has become an essential technical and ethical requirement.This anonymization tool can be applied across several practical domains like public surveillance feeds, field reporting, or even content creation and more.
+
+# Features
+
+- Face detection with a Haar Cascade.
+- Click a face to mark it as consented (green) or anonymized (red).
+- Every face starts as anonymized, so a mistake hides a person instead of exposing them.
+- Three effects: Gaussian blur, pixelation, and emoji (smiley face).
+- Right-click to add a box for a face the detector missed.
+- Delete mode to remove false boxes, with undo.
+- Removal of duplicate boxes that sit inside bigger boxes.
+- Preview of the final result before saving.
+- The anonymized area is a little bigger than the box, so some hair and ears are covered too.
+
+# Requirements
+
+- Windows with Python 3.12 (I used 3.12.10)
+- `opencv-python<5`: OpenCV itself. Version 5 moved the Haar Cascade
+  classifier out of the main package, so I used version 4.
+- `numpy`: the array library that OpenCV images are built on.
+- `pillow` — needed by the Tkinter GUI to display OpenCV images.
+
+# Installation
+
+1. Download or clone this repository, then open Powershell in the project folder.
+2. Create a virtual environment:
+
+- python -m venv venv
+
+3. Activate it. You should see '(venv)' at the start of the prompt:
+
+- .\venv\Scripts\Activate.ps1
+
+4. If powershell says scripts are disabled, run this once and activiate again:
+
+- Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+
+5. Install the packages:
+
+- pip install -r requirements.txt
+
+6. Check that it worked. This should print a 4.x version:
+
+- python -c "import cv2; print(cv2.version)"
+
+# How to Run
+
+1. Run: python main.py
+2. A window titled **Anonymizer for images** opens.
+3. Click **Open Image...** and choose a photo.
+4. The program detects faces and shows each one as a red box labeled `ANONYMIZED`.
+5. Click on the faces of the people who agreed to be shown. Their boxes turn green and the label changes to `CONSENTED`.
+6. If the detector missed a face, **right-click** on the photo to add a manual box.
+7. If a box is on something that is not a face, tick **Delete mode** and click the box to remove it. Click **Undo Delete** to bring it back.
+8. Use the **Effect** dropdown to pick Gaussian Blur, Pixelation, or Emoji.
+9. Click **Preview Result** to see the anonymized photo. Click **Show Boxes** to go back to the box view.
+10. Click **Save Anonymized Image** and choose where to save it. The saved image has no boxes, no labels, and no text — just the anonymized result.
+11. Always open the saved file and check that no stranger's face is still visible before sharing it.
+
+# Controls
+
+Everything is now a button, checkbox, or slider.
+
+| Input                 | What it does                                               |
+| --------------------- | ---------------------------------------------------------- |
+| Open Image...         | Opens a file picker to load a photo.                       |
+| Reload                | Reloads the current photo.                                 |
+| Re-detect Face        | Runs Haar again with the current slider settings.          |
+| Left click on a box   | Toggle between consented (green) and anonymized (red).     |
+| Right click on image  | Add a manual box where the detector missed a face.         |
+| Delete mode checkbox  | When ticked, left click removes a box instead of toggling. |
+| Show labels checkbox  | Show or hide the CONSENTED / ANONYMIZED text.              |
+| Undo Delete button    | Restore the last deleted box.                              |
+| Effect dropdown       | Pick Gaussian Blur, Pixelation, or Emoji.                  |
+| Show Boxes button     | Go back to the box view.                                   |
+| Preview Result button | Show the anonymized photo.                                 |
+| Save Anonymized Image | Save the clean anonymized result to disk.                  |
+
+# Detection Settings
+
+Due to limitations, adjustments are needed.
+
+| Slider        | What it controls                                            |
+| ------------- | ----------------------------------------------------------- |
+| Scale factor  | How much the image is reduced at each detection step.       |
+| Min neighbors | How strict the detector is. Higher = fewer detections.      |
+| Min size (px) | Ignore boxes smaller than this.                             |
+| Max size (px) | Ignore boxes larger than this.                              |
+| Blur padding  | How far past the box the effect extends (covers hair/ears). |
+| Pixel blocks  | Chunkiness of the pixelation effect.                        |
+
+# Example Output
+
+- '(photo)_(effect)_(date)\_(time).jpg': a saved result (clean, no boxes or labels)
+
+# Photo credits
+
+- Personal Camera
+- Pexels.com

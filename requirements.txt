@@ -1,0 +1,3 @@
+opencv-python<5   # OpenCV (face detection, image processing)
+numpy             # arrays used by OpenCV
+pillow            # shows OpenCV images inside Tkinter
